@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BDO Multitool</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        let bossTimer = new Date("{{ bossTimer }}").getTime();
-    </script>
 
 </head>
 <body class="bg-gray-900 text-white font-sans">
@@ -20,7 +18,7 @@
             <a href="#" class="hover:text-red-300 transition">Monster Zones AK Calc</a>
             <div class="flex items-center space-x-2">
                 <span>Boss Timer:</span>
-                <span id="boss-timer" class="font-mono text-red-400"></span>
+                <span id="boss-timer" data-boss-timer="{{ bossTimer }}" class="font-mono text-red-400"></span>
             </div>
         </nav>
     </div>
@@ -33,24 +31,5 @@
 </body>
 
 <!-- JS -->
-<script>
-    const timerEl = document.getElementById("boss-timer");
-
-    var x = setInterval(function () {
-        var now = Date.now() - 120000;
-        var distance = bossTimer - now
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        if (distance < 0) {
-            clearInterval(x);
-            timerEl.textContent = "EXPIRED";
-        } else {
-            timerEl.textContent =
-                days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-        }
-    }, 1000);
-</script>
+<script src="{% static 'scripts/time.js' %}"></script>
 </html>
