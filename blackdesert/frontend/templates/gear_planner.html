@@ -1,0 +1,554 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{{ gear_options|json_script:'gear-options' }}
+
+<style>
+  /* Base gear slot styles */
+  .gear {
+    position: absolute;
+    width: 49px;
+    height: 49px;
+    align-items: center;
+    background: #202225cc;
+    border-radius: .25rem;
+    display: flex;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 1px solid #77797c;
+  }
+  .gear img {
+    height: 44px;
+    width: 44px;
+  }
+  .enhance-level {
+    font-weight: 600;
+    line-height: 10px;
+    position: absolute;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #f56565;
+  }
+
+  /* Equipment circle layout */
+  .equipment {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    position: relative;
+    width: 355px;
+  }
+  .equipment .equipment-ring {
+    border: 3px solid #5e6165;
+    border-radius: 50%;
+    height: 340px;
+    width: 340px;
+  }
+
+  /* Gear slot positioning */
+  .equipment .gear-helmet { left:92px; top:0px; }
+  .equipment .gear-armor { right:92px; top:0px; }
+  .equipment .gear-gloves { right:-6px; top:220px; }
+  .equipment .gear-shoes { left:-6px; top:220px; }
+  .equipment .gear-main_weapon { left:92px; top:318px; }
+  .equipment .gear-awakening_weapon { left:152px; top:329px; }
+  .equipment .gear-sub_weapon { right:92px; top:318px; }
+  .equipment .gear-ring1 { right:32px; top:38px; }
+  .equipment .gear-ring2 { right:-6px; top:98px; }
+  .equipment .gear-earring1 { left:32px; top:39px; }
+  .equipment .gear-earring2 { left:-6px; top:98px; }
+  .equipment .gear-necklace { right:32px; top:280px; }
+  .equipment .gear-belt { left:32px; top:280px; }
+  .equipment .gear-artifact1 { left:-17px; top:159px; }
+  .equipment .gear-artifact2 { right:-17px; top:159px; }
+  .equipment .gear-alchemy_stone { right:calc(50% - 24.5px); top:145px; }
+
+  /* Enhancement and stats styles */
+  .upgrade-btn {
+    @apply bg-gray-800 text-white border border-gray-600 rounded-md m-0.5 px-2 py-0.5 text-sm min-w-8 min-h-8 cursor-pointer transition-all duration-200;
+  }
+  .upgrade-btn.selected, .upgrade-btn:hover {
+    @apply border-2 border-yellow-400 bg-gray-700 text-yellow-400;
+  }
+  .gear-stats {
+    @apply mt-5 text-lg text-white flex gap-4 items-center justify-center w-full;
+    text-align: center;
+  }
+  .gear-stat span {
+    @apply text-gray-400 text-base mr-0.5;
+  }
+  .gear-stat b {
+    @apply text-yellow-400 font-bold text-lg;
+  }
+
+  /* Total stats display */
+  .gear-totals-bar {
+    @apply flex flex-row justify-center items-center gap-12;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .gear-total {
+    @apply flex flex-col items-center text-white;
+  }
+  .gear-total span {
+    @apply text-gray-400 text-lg mb-1 tracking-wide;
+  }
+  .gear-total b {
+    @apply text-white font-bold text-2xl tracking-wide;
+  }
+
+  /* Layout container and responsive styles */
+  .gear-layout-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 24px;
+  }
+  @media (max-width: 900px) {
+    .gear-layout-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .gear-sidebar {
+      width: 100%;
+      min-width: 0;
+      margin-top: 12px;
+    }
+    .equipment {
+      margin: 0 auto;
+    }
+  }
+
+  /* Gear slot interaction styles */
+  .gear-slot {
+    cursor: pointer;
+    transition: box-shadow 0.18s, border 0.18s;
+  }
+  .gear-slot:hover {
+    box-shadow: 0 0 0 3px #858583, 0 2px 8px #0006;
+    border: 2px solid #fbbf24;
+    z-index: 2;
+  }
+
+  /* Sidebar styles */
+  .gear-sidebar {
+    position: relative;
+    width: 340px;
+    min-width: 240px;
+    max-width: 100vw;
+    min-height: 350px;
+    background: rgba(32,34,38,0.97);
+    box-shadow: 0 4px 24px 0 #000a, 0 1.5px 4px 0 #0008;
+    z-index: 1000;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 10px;
+    border: 1px solid #232428;
+    font-size: 0.97rem;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    overflow: hidden;
+    margin-left: 24px;
+  }
+  .sidebar-tabs {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #232428;
+    background: rgba(32,34,38,0.97);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    height: 38px;
+  }
+  .sidebar-tabs .tab {
+    flex: 1;
+    padding: 0 0;
+    background: none;
+    border: none;
+    color: #b0b0b0;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 100%;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .sidebar-tabs .tab.active, .sidebar-tabs .tab:hover {
+    background: #232428;
+    color: #bc5959;
+  }
+  .sidebar-content {
+    padding: 18px 16px 12px 16px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+  }
+  .sidebar-enhancement {
+    font-size: 0.8rem;
+  }
+  #sidebar-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #fbbf24;
+    text-shadow: 0 1px 2px #0008;
+  }
+  #sidebar-dropdown-container select {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 0.97rem;
+    border-radius: 6px;
+    border: 1px solid #393c42;
+    background: #232428;
+    color: #e0e0e0;
+    outline: none;
+    box-shadow: 0 1px 2px #0002;
+    transition: border 0.2s;
+  }
+  #sidebar-dropdown-container select:focus {
+    border: 1.5px solid #fbbf24;
+  }
+  .sidebar-header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    min-height: 38px;
+  }
+  .sidebar-slot-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background: #18191c;
+    border-radius: 6px;
+    border: 1px solid #393c42;
+    box-shadow: 0 1px 2px #0002;
+    padding: 3px;
+    margin-right: 2px;
+  }
+
+  /* Gear planner panel styles */
+  .gear-planner-panel {
+    background: rgba(32,34,38,0.97);
+    border-radius: 14px;
+    box-shadow: 0 4px 24px 0 #000a, 0 1.5px 4px 0 #0008;
+    border: 1px solid #232428;
+    padding: 20px;
+    min-width: 380px;
+    max-width: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 120px;
+    height: 600px;
+  }
+  @media (max-width: 900px) {
+    .gear-planner-panel {
+      min-width: 0;
+      max-width: 100vw;
+      padding: 12px 4vw 12px 4vw;
+    }
+  }
+
+  /* Equipment responsive styles */
+  .equipment {
+    padding-top: 0.5rem;
+    position: relative;
+    width: 355px;
+    min-width: 240px;
+    max-width: 100vw;
+  }
+  @media (max-width: 500px) {
+    .equipment {
+      width: 100vw;
+      min-width: 0;
+    }
+    .gear-sidebar {
+      width: 100vw;
+      min-width: 0;
+    }
+  }
+
+  /* Sidebar dropdown styles */
+  .sidebar-dropdown-inline {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-dropdown-inline select {
+    width: 100%;
+    min-width: 0;
+  }
+</style>
+
+<div class="gear-layout-container">
+  <div class="gear-planner-panel">
+    <div class="equipment">
+      <div class="equipment-ring">
+        <!-- Character silhouette in the center -->
+        <img src="https://assets.garmoth.com/classes/500/12.webp" style="opacity:0.07; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:180px;">
+        
+        <!-- Gear slots -->
+        <div class="gear gear-helmet gear-slot" data-slot="helmet"><img id="gear-img-helmet" src="{% static 'icons/helmet.png' %}" alt="Helmet"></div>
+        <div class="gear gear-armor gear-slot" data-slot="armor"><img id="gear-img-armor" src="{% static 'icons/armor.png' %}" alt="Armor"></div>
+        <div class="gear gear-gloves gear-slot" data-slot="gloves"><img id="gear-img-gloves" src="{% static 'icons/gloves.png' %}" alt="Gloves"></div>
+        <div class="gear gear-shoes gear-slot" data-slot="shoes"><img id="gear-img-shoes" src="{% static 'icons/shoes.png' %}" alt="Shoes"></div>
+        <div class="gear gear-main_weapon gear-slot" data-slot="main_weapon"><img id="gear-img-main_weapon" src="{% static 'icons/main_weapon.png' %}" alt="Main Weapon"></div>
+        <div class="gear gear-awakening_weapon gear-slot" data-slot="awakening_weapon"><img id="gear-img-awakening_weapon" src="{% static 'icons/awakening_weapon.png' %}" alt="Awakening Weapon"></div>
+        <div class="gear gear-sub_weapon gear-slot" data-slot="sub_weapon"><img id="gear-img-sub_weapon" src="{% static 'icons/sub_weapon.png' %}" alt="Sub Weapon"></div>
+        <div class="gear gear-ring1 gear-slot" data-slot="ring1"><img id="gear-img-ring1" src="{% static 'icons/ring.png' %}" alt="Ring 1"></div>
+        <div class="gear gear-ring2 gear-slot" data-slot="ring2"><img id="gear-img-ring2" src="{% static 'icons/ring.png' %}" alt="Ring 2"></div>
+        <div class="gear gear-earring1 gear-slot" data-slot="earring1"><img id="gear-img-earring1" src="{% static 'icons/earring.png' %}" alt="Earring 1"></div>
+        <div class="gear gear-earring2 gear-slot" data-slot="earring2"><img id="gear-img-earring2" src="{% static 'icons/earring.png' %}" alt="Earring 2"></div>
+        <div class="gear gear-necklace gear-slot" data-slot="necklace"><img id="gear-img-necklace" src="{% static 'icons/necklace.png' %}" alt="Necklace"></div>
+        <div class="gear gear-belt gear-slot" data-slot="belt"><img id="gear-img-belt" src="{% static 'icons/belt.png' %}" alt="Belt"></div>
+        <div class="gear gear-artifact1 gear-slot" data-slot="artifact1"><img src="{% static 'icons/artifact.png' %}" alt="Artifact 1"></div>
+        <div class="gear gear-artifact2 gear-slot" data-slot="artifact2"><img src="{% static 'icons/artifact.png' %}" alt="Artifact 2"></div>
+        <div class="gear gear-alchemy_stone gear-slot" data-slot="alchemy_stone"><img src="{% static 'icons/alchemy_stone.png' %}" alt="Alchemy Stone"></div>
+      </div>
+    </div>
+    <div id="gear-totals" class="gear-totals-bar"></div>
+  </div>
+  <div id="gear-sidebar" class="gear-sidebar open">
+    <div class="sidebar-tabs">
+      <button class="tab active"><i class="fa-solid fa-shield-halved"></i> Equipment</button>
+    </div>
+    <div class="sidebar-content">
+      <div class="sidebar-enhancement">
+        <p>Enhancement Level</p>
+      </div>
+      <div id="sidebar-header" class="sidebar-header-row">
+        <img id="sidebar-slot-icon" src="{% static 'icons/main_weapon.png' %}" alt="Slot Icon" class="sidebar-slot-icon">
+        <div id="sidebar-dropdown-container" class="sidebar-dropdown-inline"></div>
+      </div>
+      <div id="upgrade-levels-container" style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;"></div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="{% static 'scripts/gear_sidebar.js' %}"></script>
+<script type="text/javascript">
+// Global state to store selected gear and their enhancement levels
+const gearState = {
+    selectedGear: {},        // Stores selected gear items by slot
+    enhancementLevels: {},   // Stores enhancement levels by slot
+    currentStats: {}         // Stores current stats by slot
+};
+
+// Make gearState globally accessible
+window.gearState = gearState;
+
+/**
+ * Get upgrade levels for an item in a specific slot
+ * @param {string} slot - The gear slot
+ * @param {string} itemName - The name of the item
+ * @returns {Array} Array of upgrade levels
+ */
+function getUpgradeLevels(slot, itemName) {
+    const slotItems = gearOptions[slot] || [];
+    const item = slotItems.find(i => i.name === itemName);
+    return item ? item.upgrade_levels : [];
+}
+
+/**
+ * Calculate and update total stats display
+ * Handles AP, AAP, DP, and total gear score calculations
+ */
+function updateTotalStats() {
+    let totalAP = 0;
+    let totalDP = 0;
+    let totalAAP = 0;
+
+    // Calculate totals from equipped items
+    Object.entries(gearState.currentStats).forEach(([slot, stats]) => {
+        if (stats) {
+            const ap = parseInt(stats.ap || 0);
+            const dp = parseInt(stats.dp || 0);
+
+            // Handle AP calculations based on slot type
+            if (slot === 'main_weapon') {
+                totalAP += ap;  // Main weapon only counts for AP
+            } else if (slot === 'awakening_weapon') {
+                totalAAP += ap;  // Awakening weapon only counts for AAP
+            } else {
+                // All other gear counts for both AP and AAP
+                totalAP += ap;
+                totalAAP += ap;
+            }
+
+            totalDP += dp;
+        }
+    });
+
+    // Calculate gear score (highest of AP/AAP + DP)
+    const gearScore = Math.max(totalAP, totalAAP) + totalDP;
+
+    // Update the totals display
+    const totalsDiv = document.getElementById('gear-totals');
+    totalsDiv.innerHTML = `
+        <div class="gear-total">
+            <span>AP</span>
+            <b>${totalAP}</b>
+        </div>
+        <div class="gear-total">
+            <span>AAP</span>
+            <b>${totalAAP}</b>
+        </div>
+        <div class="gear-total">
+            <span>DP</span>
+            <b>${totalDP}</b>
+        </div>
+        <div class="gear-total">
+            <span>Score</span>
+            <b>${gearScore}</b>
+        </div>
+    `;
+}
+
+/**
+ * Render upgrade buttons for an item and slot
+ * @param {string} slot - The gear slot
+ * @param {string} itemName - The name of the item
+ * @param {string|null} selectedLevel - The selected enhancement level
+ */
+window.renderUpgradeButtons = function(slot, itemName, selectedLevel = null) {
+    const container = document.getElementById('upgrade-levels-container');
+    container.innerHTML = '';
+    
+    // Clear existing stats when switching items
+    let oldStats = document.querySelector('.sidebar-content .gear-stats');
+    if (oldStats) oldStats.remove();
+    
+    if (!itemName || itemName === 'None') {
+        // Clear stats for this slot when no item is selected
+        gearState.currentStats[slot] = null;
+        gearState.selectedGear[slot] = null;
+        gearState.enhancementLevels[slot] = null;
+        updateTotalStats();
+        return;
+    }
+
+    const slotItems = gearOptions[slot] || [];
+    const item = slotItems.find(i => i.name === itemName);
+    if (!item) return;
+
+    const levels = item.upgrade_levels;
+    // Use stored enhancement level or default to first level
+    let selected = selectedLevel || gearState.enhancementLevels[slot] || levels[0];
+    
+    // Update gear state
+    gearState.selectedGear[slot] = itemName;
+    gearState.enhancementLevels[slot] = selected;
+
+    // Find and store current stats
+    let currentStats = null;
+    item.levels.forEach(lvl => {
+        if (lvl.level === selected) {
+            currentStats = lvl;
+            gearState.currentStats[slot] = lvl;
+        }
+    });
+
+    // Default to first level if selected level not found
+    if (!currentStats && item.levels.length > 0) {
+        currentStats = item.levels[0];
+        gearState.currentStats[slot] = currentStats;
+        selected = currentStats.level;
+        gearState.enhancementLevels[slot] = selected;
+    }
+
+    // Create upgrade buttons
+    levels.forEach(level => {
+        const btn = document.createElement('button');
+        btn.className = 'upgrade-btn' + (level === selected ? ' selected' : '');
+        btn.textContent = level;
+        btn.onclick = () => {
+            // Update button states
+            document.querySelectorAll('.upgrade-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            
+            // Update enhancement level and stats
+            gearState.enhancementLevels[slot] = level;
+            const stats = item.levels.find(lvl => lvl.level === level);
+            gearState.currentStats[slot] = stats;
+            
+            // Update displays
+            showStats(stats, container);
+            updateTotalStats();
+
+            // Update enhancement level on gear icon
+            updateEnhancementDisplay(slot, level);
+        };
+        container.appendChild(btn);
+    });
+
+    // Initialize displays
+    showStats(currentStats, container);
+    updateTotalStats();
+    updateEnhancementDisplay(slot, selected);
+}
+
+/**
+ * Update the enhancement level display on a gear icon
+ * @param {string} slot - The gear slot
+ * @param {string} level - The enhancement level to display
+ */
+function updateEnhancementDisplay(slot, level) {
+    const enhanceDisplay = document.querySelector(`.gear-${slot} .enhance-level`);
+    if (enhanceDisplay) {
+        enhanceDisplay.textContent = level;
+    } else {
+        const newEnhanceDisplay = document.createElement('div');
+        newEnhanceDisplay.className = 'enhance-level';
+        newEnhanceDisplay.textContent = level;
+        document.querySelector(`.gear-${slot}`).appendChild(newEnhanceDisplay);
+    }
+}
+
+/**
+ * Display stats for the selected item
+ * @param {Object} stats - The stats object containing AP and DP values
+ * @param {HTMLElement} container - The container element for the stats display
+ */
+function showStats(stats, container) {
+    // Remove previous stats
+    let old = document.querySelector('.sidebar-content .gear-stats');
+    if (old) old.remove();
+    
+    if (!stats) return;
+    
+    // Build stats HTML
+    let statsHtml = '';
+    if (stats.ap && stats.ap !== '0') {
+        statsHtml += `<div class='gear-stat'><span>AP:</span> <b>${stats.ap}</b></div>`;
+    }
+    if (stats.dp && stats.dp !== 0 && stats.dp !== '0') {
+        statsHtml += `<div class='gear-stat'><span>DP:</span> <b>${stats.dp}</b></div>`;
+    }
+    
+    // Add stats to sidebar
+    if (statsHtml) {
+        const statsDiv = document.createElement('div');
+        statsDiv.className = 'gear-stats';
+        statsDiv.innerHTML = statsHtml;
+        const sidebarContent = document.querySelector('.sidebar-content');
+        sidebarContent.appendChild(statsDiv);
+    }
+}
+</script>
+{% endblock %} 
