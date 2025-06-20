@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-red-400">Monster Zone AP/DP Calculator</h1>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Left side - Character Stats -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold mb-4">Your Stats</h2>
+                <div class="space-y-4">
+                    <label class="block">
+                        <span class="text-gray-300">AP</span>
+                        <input type="number" class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white" placeholder="Enter your AP">
+                    </label>
+                    <label class="block">
+                        <span class="text-gray-300">DP</span>
+                        <input type="number" class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white" placeholder="Enter your DP">
+                    </label>
+                    <label class="block">
+                        <span class="text-gray-300">Level</span>
+                        <input type="number" class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white" placeholder="Enter your level">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Right side - Monster Zone Selection -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold mb-4">Monster Zone</h2>
+                <div class="space-y-4">
+                    <label class="block">
+                        <span class="text-gray-300">Select Zone</span>
+                        <select class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white">
+                            <option>Select a zone</option>
+                            <option>Polly's Forest</option>
+                            <option>Fogans</option>
+                            <option>Nagas</option>
+                            <option>Cadry Ruins</option>
+                            <option>Gahaz Bandits</option>
+                            <option>Pila Ku Jail</option>
+                            <option>Hystria Ruins</option>
+                            <option>Star's End</option>
+                        </select>
+                    </label>
+                    
+                    <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                        <h3 class="text-lg font-semibold mb-2">Recommended Stats</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-300">Recommended AP</p>
+                                <p class="text-xl font-bold text-red-400">-</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-300">Recommended DP</p>
+                                <p class="text-xl font-bold text-red-400">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
