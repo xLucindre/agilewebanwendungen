@@ -429,7 +429,6 @@ function updateTotalStats() {
 window.renderUpgradeButtons = function(slot, itemName, selectedLevel = null) {
     const container = document.getElementById('upgrade-levels-container');
     container.innerHTML = '';
-    
     // Clear existing stats when switching items
     let oldStats = document.querySelector('.sidebar-content .gear-stats');
     if (oldStats) oldStats.remove();
@@ -440,6 +439,7 @@ window.renderUpgradeButtons = function(slot, itemName, selectedLevel = null) {
         gearState.selectedGear[slot] = null;
         gearState.enhancementLevels[slot] = null;
         updateTotalStats();
+        clearEnhancementDisplay(slot)
         return;
     }
 
@@ -490,6 +490,7 @@ window.renderUpgradeButtons = function(slot, itemName, selectedLevel = null) {
             // Update displays
             showStats(stats, container);
             updateTotalStats();
+            saveGearToBackend()
 
             // Update enhancement level on gear icon
             updateEnhancementDisplay(slot, level);
@@ -517,6 +518,17 @@ function updateEnhancementDisplay(slot, level) {
         newEnhanceDisplay.className = 'enhance-level';
         newEnhanceDisplay.textContent = level;
         document.querySelector(`.gear-${slot}`).appendChild(newEnhanceDisplay);
+    }
+}
+/**
+ * Clear the enhancement level display on a gear icon
+ * @param {string} slot - The gear slot
+ */
+function clearEnhancementDisplay(slot) {
+    console.log(slot)
+    const enhanceDisplay = document.querySelector(`.gear-${slot} .enhance-level`);
+    if (enhanceDisplay) {
+        enhanceDisplay.remove()
     }
 }
 

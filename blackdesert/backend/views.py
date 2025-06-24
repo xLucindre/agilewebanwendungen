@@ -44,5 +44,5 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return JsonResponse({"redirect": "/login"})
+    return JsonResponse({"redirect": "/"})
 
