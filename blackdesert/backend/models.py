@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Equipment(models.Model):
@@ -31,3 +31,10 @@ class Equipment(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.equip_type}) +{self.upgrades}"
+    
+class UserGear(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    gear_data = models.JSONField(default=dict)  # Stores selectedGear, enhancementLevels, etc.
+
+    def __str__(self):
+        return f"{self.user.username}'s Gear"

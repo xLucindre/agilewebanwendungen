@@ -7,6 +7,19 @@
 const gearOptions = JSON.parse(document.getElementById('gear-options').textContent);
 
 /**
+ * Save gearOptions to database
+ */
+function saveGearToBackend(){
+    fetch('/backend/save_gear/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ gear_data: gearState }),
+    });
+}
+/**
  * Update the sidebar for a specific gear slot
  * @param {string} slot - The gear slot to update the sidebar for
  */
@@ -57,7 +70,7 @@ function updateSidebar(slot) {
         // Clear any existing stats when dropdown changes
         let oldStats = document.querySelector('.sidebar-content .gear-stats');
         if (oldStats) oldStats.remove();
-        
+
         // Update gear icon
         if (iconPath && iconPath !== 'None') {
             document.getElementById('gear-img-' + slotName).src = '/static/icons/' + iconPath;
@@ -80,9 +93,52 @@ function updateSidebar(slot) {
                 if (typeof updateTotalStats === 'function') {
                     updateTotalStats();
                 }
+                renderUpgradeButtons(slotName, this.value)
             }
         }
+        saveGearToBackend()
     });
+}
+
+/**
+ * Load gear from backend if it exists 
+ */
+async function loadGearFromBackend() {
+    try {
+        const response = await fetch('/backend/get_gear/', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
+        });
+        const data = await response.json();
+        if (data.status === 'success' && data.gear_data) {
+            Object.assign(window.gearState, data.gear_data);
+            // Update UI for all slots
+            Object.keys(window.gearState.selectedGear).forEach(slot => {
+                const itemName = window.gearState.selectedGear[slot];
+                const enhancementLevel = window.gearState.enhancementLevels[slot];
+                if (itemName && itemName !== 'None') {
+                    // Update image
+                    const slotItems = gearOptions[slot] || [];
+                    const item = slotItems.find(i => i.name === itemName);
+                    if (item && item.icon) {
+                        const img = document.getElementById('gear-img-' + slot);
+                        if (img) img.src = '/static/icons/' + item.icon;
+                    }
+                    // Update enhancement level display
+                    if (typeof updateEnhancementDisplay === 'function') {
+                        updateEnhancementDisplay(slot, enhancementLevel);
+                    }
+                }
+            });
+            // Optionally update totals
+            if (typeof updateTotalStats === 'function') updateTotalStats();
+        }
+    } catch (error) {
+        console.error('Failed to load gear data:', error);
+    }
 }
 
 /**
@@ -90,6 +146,7 @@ function updateSidebar(slot) {
  * Sets up event listeners for gear slots and shows default slot
  */
 function initializeGearPlanner() {
+    loadGearFromBackend()
     // Add click event listeners to all gear slots
     document.querySelectorAll('.gear-slot').forEach(el => {
         el.addEventListener('click', function() {
