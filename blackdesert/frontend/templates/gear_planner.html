@@ -490,6 +490,7 @@ window.renderUpgradeButtons = function(slot, itemName, selectedLevel = null) {
             // Update displays
             showStats(stats, container);
             updateTotalStats();
+            saveGearToBackend()
 
             // Update enhancement level on gear icon
             updateEnhancementDisplay(slot, level);
