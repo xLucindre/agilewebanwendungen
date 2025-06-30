@@ -1,54 +1,49 @@
-<html>
-  <form id="register-form">
+{% extends "base.html" %}
+{% block content %}
+<div style="display: flex; flex-direction: column; align-items: center; gap: 15px">
+  <form class="text-black" id="register-form" style="display: flex; flex-direction: column; align-items: center; gap: 2px">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username" required /><br />
-    <input
-      type="password"
-      name="password1"
-      placeholder="Password"
-      required
-    /><br />
-    <input
-      type="password"
-      name="password2"
-      placeholder="Confirm Password"
-      required
-    /><br />
-    <button type="submit">Register</button>
+    <input type="password" name="password1" placeholder="Password" required /><br />
+    <input type="password" name="password2" placeholder="Confirm Password" required /><br />
+    <button class="button mt-1 bg-blue-700" type="submit">Register</button>
   </form>
-
+  <button class="button bg-gray-600" onclick="location.href='/login'">Already got an account?</button>
   <div id="message"></div>
-
+</div>
+  <style>
+    .button{
+      padding: 5px;
+      border-radius: 90px;
+    }
+  </style>
   <script>
-    document
-      .getElementById("register-form")
-      .addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent default form submit
-
-        const form = e.target;
-        const formData = new FormData(form);
-
-        fetch("/backend/register/", {
-          method: "POST",
-          headers: {
-            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
-              .value,
-          },
-          body: formData,
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault() // Prevent default form submit
+    
+      const form = e.target
+      const formData = new FormData(form)
+    
+      fetch('/backend/register/', {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: formData
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.error && data.redirect) {
+            window.location.href = data.redirect
+          }
+          if (data.error) {
+            document.getElementById('message').innerText = data.error
+            console.log(data)
+          }
         })
-          .then((response) => response.json())
-          .then((data) => {
-            if (!data.error && data.redirect) {
-              window.location.href = data.redirect;
-            }
-            if (data.error) {
-              document.getElementById("message").innerText = data.error;
-              console.log(data);
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      });
+        .catch((error) => {
+          console.error('Error:', error)
+        })
+    })
   </script>
-</html>
+{% endblock %}
