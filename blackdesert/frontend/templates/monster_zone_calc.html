@@ -10,17 +10,17 @@
             <div class="space-y-4">
                 <h2 class="text-xl font-semibold mb-4">Your Stats</h2>
                 <div class="space-y-4">
-                    <label class="block">
+                    <label class="flex flex-col items-start">
                         <span class="text-gray-300">AP</span>
-                        <input type="number" class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white" placeholder="Enter your AP">
+                        <div class="mt-1 inline-block rounded-md bg-gray-700 border-gray-600 text-white px-2 py-1 text-sm w-20">{{ ap|default_if_none:'-' }}</div>
                     </label>
-                    <label class="block">
+                    <label class="flex flex-col items-start">
+                        <span class="text-gray-300">AAP</span>
+                        <div class="mt-1 inline-block rounded-md bg-gray-700 border-gray-600 text-white px-2 py-1 text-sm w-20">{{ aap|default_if_none:'-' }}</div>
+                    </label>
+                    <label class="flex flex-col items-start">
                         <span class="text-gray-300">DP</span>
-                        <input type="number" class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white" placeholder="Enter your DP">
-                    </label>
-                    <label class="block">
-                        <span class="text-gray-300">Level</span>
-                        <input type="number" class="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white" placeholder="Enter your level">
+                        <div class="mt-1 inline-block rounded-md bg-gray-700 border-gray-600 text-white px-2 py-1 text-sm w-20">{{ dp|default_if_none:'-' }}</div>
                     </label>
                 </div>
             </div>
@@ -62,4 +62,44 @@
         </div>
     </div>
 </div>
+
+<style>
+  /* Entferne Spinner bei number inputs */
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  /* Responsive Anpassungen */
+  @media (max-width: 700px) {
+    .container {
+      padding: 0.5rem !important;
+    }
+    .grid {
+      grid-template-columns: 1fr !important;
+    }
+    .bg-gray-800, .bg-gray-700 {
+      padding: 1rem !important;
+    }
+    h1 {
+      font-size: 1.5rem !important;
+    }
+    h2 {
+      font-size: 1.1rem !important;
+    }
+    .rounded-lg {
+      border-radius: 0.5rem !important;
+    }
+    .p-6 {
+      padding: 1rem !important;
+    }
+    .p-4 {
+      padding: 0.5rem !important;
+    }
+  }
+</style>
 {% endblock %} 
