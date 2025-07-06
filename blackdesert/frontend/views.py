@@ -109,3 +109,6 @@ def gear_planner(request):
 
 def monster_zone_calc(request):
     return render(request, "monster_zone_calc.html")
+
+def bosses(request):
+    return render(request, "bosses.html")
