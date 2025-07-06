@@ -7,6 +7,7 @@
     <title>BDO Multitool</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="csrf-token" content="{{ csrf_token }}" />
+    {% block head %} {% endblock %}
   </head>
   <body class="bg-gray-900 text-white font-sans">
     <!-- Header -->
@@ -20,31 +21,35 @@
           <a href="/monster-zone-calc" class="hover:text-red-300 transition"
             >Monster Zones AP/DP Calc</a
           >
+          <a href="/bosses"  class="hover:text-red-300 transition">
+            Boss Timer: </a>
           <div class="flex items-center space-x-2">
-            <span>Boss Timer:</span>
             <span
               id="boss-timer"
               data-boss-timer="{{ bossTimer }}"
               class="font-mono text-red-400"
-            ></span>
+            >--h --m --s</span>
           </div>
         </nav>
-        <button
-          onclick="toggleLogin({{ user.is_authenticated|yesno:'true,false' }})"
-          class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 active:bg-blue-700 focus:outline-none transition duration-200"
-        >
-          {% if user.is_authenticated %} Logout {%else%} Login {%endif%}
-        </button>
+        <div class="flex gap-5">
+          <button id="region-button"></button>
+          <button
+            onclick="toggleLogin({{ user.is_authenticated|yesno:'true,false' }})"
+            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 active:bg-blue-700 focus:outline-none transition duration-200"
+          >
+            {% if user.is_authenticated %} Logout {%else%} Login {%endif%}
+          </button>
+        </div>
       </div>
     </header>
 
+  
+    <!-- JS -->
+    <script src="{% static 'scripts/login.js' %}"></script>
+    <script src="{% static 'scripts/boss-timer.js' %}"></script>
     <!-- Main Content -->
     <main class="p-6 max-w-4xl mx-auto">
       {% block content %} {% endblock %}
     </main>
   </body>
-
-  <!-- JS -->
-  <script src="{% static 'scripts/time.js' %}"></script>
-  <script src="{% static 'scripts/login.js' %}"></script>
 </html>

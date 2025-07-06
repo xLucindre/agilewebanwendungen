@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+  <style>
+    main {
+      max-width: 90vw !important
+    }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Boss Schedule</h1>
+    
+    <table id="bossTable">
+        <thead>
+            <tr>
+                <th class="time-column p-0 w-fit whitespace-nowrap" id="time-column">Time</th>
+                <th>MON</th>
+                <th>TUE</th>
+                <th>WED</th>
+                <th>THU</th>
+                <th>FRI</th>
+                <th>SAT</th>
+                <th>SUN</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+</div>
+<script>
+function generateTable(region) {
+    const data = bossTimes[region];
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    
+    const timeColumn = document.getElementById("time-column");
+    timeColumn.innerHTML = `Time ${selectedRegion === "eu" ? "CET\uFEFF/CEST":"PST\uFEFF/PDT"}`
+    console.log(selectedRegion === "eu" ? "NA":"EU")
+
+    // Get all unique times
+    const allTimes = new Set();
+    days.forEach(day => {
+        data[day].forEach(slot => allTimes.add(slot.time));
+    });
+    
+    const sortedTimes = Array.from(allTimes).sort();
+    
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    
+    sortedTimes.forEach(time => {
+        const row = document.createElement('tr');
+        
+        // Time column
+        const timeCell = document.createElement('td');
+        timeCell.className = 'time-column';
+        row.id = time
+        timeCell.textContent = time;
+        row.appendChild(timeCell);
+        
+        // Day columns
+        days.forEach(day => {
+            const dayData = data[day];
+            const slot = dayData.find(s => s.time === time);
+            
+            const cell = document.createElement('td');
+            cell.className = 'boss-cell';
+            cell.id = day
+            const inner = document.createElement('div')
+            
+            if (slot) {
+                inner.innerHTML = formatBossCell(slot.boss);
+            } else {
+                inner.innerHTML = '<span class="empty-cell">-</span>';
+            }
+            cell.appendChild(inner)
+            row.appendChild(cell);
+        });
+        
+        tbody.appendChild(row);
+    });
+}
+function getBossClass(bossName) {
+    return 'boss-' + bossName.toLowerCase().replace(/\s+/g, '-');
+}
+
+function formatBossCell(bossString) {
+    if (bossString === '-') {
+        return '<span class="empty-cell">-</span>';
+    }
+    
+    const bosses = bossString.split(', ');
+    return bosses.map(boss => 
+        `<span class="boss-name ${getBossClass(boss)}">${boss}</span>`
+    ).join(' ');
+}
+
+regionButton.addEventListener("click", () =>{
+    generateTable(selectedRegion);
+})
+
+generateTable('eu')
+updateActive()
+</script>
+<style>
+    .active > div{
+        border: 1px solid green;
+        padding-bottom: 4px;
+    }
+    table {
+        border-spacing: 50px 10px;
+        border-collapse: collapse
+    }
+    tr {
+        border-bottom: 1px solid white;
+    }
+    th, td {
+        padding: 12px 8px;
+        text-align: center;
+        border-bottom: 1px solid #4a5f7a;
+        vertical-align: middle;
+    }
+    .boss-name {
+        display: inline-block;
+        margin: 1px 2px;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 10px;
+        font-weight: bold;
+    }
+    /* Boss color coding */
+    .boss-karanda { background-color: #e74c3c; color: white; }
+    .boss-kzarka { background-color: #3498db; color: white; }
+    .boss-kutum { background-color: #9b59b6; color: white; }
+    .boss-nouver { background-color: #e67e22; color: white; }
+    .boss-garmoth { background-color: #27ae60; color: white; }
+    .boss-offin { background-color: #f39c12; color: white; }
+    .boss-vell { background-color: #1abc9c; color: white; }
+    .boss-quint { background-color: #34495e; color: white; }
+    .boss-muraka { background-color: #7f8c8d; color: white; }
+    .boss-uturi { background-color: #16a085; color: white; }
+    .boss-sangoon { background-color: #8e44ad; color: white; }
+    .boss-bulgasal { background-color: #c0392b; color: white; }
+    .boss-golden-pig-king { background-color: #f1c40f; color: black; }
+    .boss-black-shadow { background-color: #2c3e50; color: white; }
+</style>
+{% endblock content%}
+
