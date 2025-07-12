@@ -28,14 +28,15 @@
         </tbody>
     </table>
 </div>
-<script>
-function generateTable(region) {
+<script type="module">
+import { updateActive, bossTimes, loadingBossTimes, selectedRegion, regionButton } from "/static/scripts/boss-timer.js";
+async function generateTable(region) {
+    await loadingBossTimes;
     const data = bossTimes[region];
     const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
     
     const timeColumn = document.getElementById("time-column");
     timeColumn.innerHTML = `Time ${selectedRegion === "eu" ? "CET\uFEFF/CEST":"PST\uFEFF/PDT"}`
-    console.log(selectedRegion === "eu" ? "NA":"EU")
 
     // Get all unique times
     const allTimes = new Set();
@@ -97,9 +98,9 @@ function formatBossCell(bossString) {
 
 regionButton.addEventListener("click", () =>{
     generateTable(selectedRegion);
-})
+}) 
 
-generateTable('eu')
+await generateTable('eu')
 updateActive()
 </script>
 <style>
