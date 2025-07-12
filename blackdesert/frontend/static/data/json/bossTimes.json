@@ -1,0 +1,167 @@
+{
+  "na": {
+    "mon": [
+      { "time": "00:00", "boss": "Karanda" },
+      { "time": "03:00", "boss": "Kzarka" },
+      { "time": "07:00", "boss": "Kzarka, Uturi" },
+      { "time": "10:00", "boss": "Offin" },
+      { "time": "12:00", "boss": "Garmoth, Golden Pig King" },
+      { "time": "14:00", "boss": "Kutum, Bulgasal" },
+      { "time": "17:00", "boss": "Karanda, Bulgasal, Golden Pig King" },
+      { "time": "20:15", "boss": "Kzarka, Sangoon" },
+      { "time": "21:15", "boss": "Garmoth, Uturi" },
+      { "time": "22:15", "boss": "Karanda, Sangoon" }
+    ],
+    "tue": [
+      { "time": "00:00", "boss": "Kutum" },
+      { "time": "03:00", "boss": "Kzarka" },
+      { "time": "07:00", "boss": "Nouver" },
+      { "time": "10:00", "boss": "Kutum" },
+      { "time": "12:00", "boss": "Garmoth, Golden Pig King" },
+      { "time": "14:00", "boss": "Nouver, Bulgasal" },
+      { "time": "17:00", "boss": "Karanda, Bulgasal" },
+      { "time": "20:15", "boss": "Quint, Muraka, Bulgasal" },
+      { "time": "21:15", "boss": "Garmoth, Sangoon" },
+      { "time": "22:15", "boss": "Kzarka, Kutum, Uturi" }
+    ],
+    "wed": [
+      { "time": "00:00", "boss": "Karanda" },
+      { "time": "03:00", "boss": "Kzarka" },
+      { "time": "07:00", "boss": "Karanda" },
+      { "time": "10:00", "boss": "Nouver" },
+      { "time": "12:00", "boss": "Garmoth, Golden Pig King" },
+      { "time": "14:00", "boss": "Kutum, Offin, Bulgasal" },
+      { "time": "17:00", "boss": "Karanda" },
+      { "time": "20:15", "boss": "Karanda, Kzarka, Uturi" },
+      { "time": "21:15", "boss": "Garmoth" },
+      { "time": "22:15", "boss": "Kzarka, Kutum" }
+    ],
+    "thu": [
+      { "time": "00:00", "boss": "Kutum" },
+      { "time": "07:00", "boss": "Kutum" },
+      { "time": "10:00", "boss": "Nouver, Sangoon" },
+      { "time": "12:00", "boss": "Garmoth, Uturi" },
+      { "time": "14:00", "boss": "Kzarka, Sangoon, Bulgasal" },
+      { "time": "17:00", "boss": "Vell, Sangoon" },
+      { "time": "20:15", "boss": "Karanda, Kzarka, Sangoon" },
+      { "time": "21:15", "boss": "Garmoth, Golden Pig King" },
+      { "time": "22:15", "boss": "Nouver, Golden Pig King" }
+    ],
+    "fri": [
+      { "time": "00:00", "boss": "Nouver" },
+      { "time": "03:00", "boss": "Karanda" },
+      { "time": "07:00", "boss": "Kutum" },
+      { "time": "10:00", "boss": "Karanda" },
+      { "time": "12:00", "boss": "Garmoth, Bulgasal" },
+      { "time": "14:00", "boss": "Nouver, Uturi, Golden Pig King" },
+      { "time": "17:00", "boss": "Kutum, Bulgasal" },
+      { "time": "20:15", "boss": "Quint, Muraka" },
+      { "time": "21:15", "boss": "Garmoth" },
+      { "time": "22:15", "boss": "Karanda, Kzarka, Bulgasal" }
+    ],
+    "sat": [
+      { "time": "00:00", "boss": "Offin, Uturi" },
+      { "time": "03:00", "boss": "Nouver" },
+      { "time": "07:00", "boss": "Kutum" },
+      { "time": "10:00", "boss": "Nouver, Sangoon" },
+      { "time": "12:00", "boss": "Garmoth, Golden Pig King, Uturi" },
+      { "time": "14:00", "boss": "Black Shadow, Bulgasal, Golden Pig King" },
+      { "time": "17:00", "boss": "Karanda, Kzarka, Bulgasal" }
+    ],
+    "sun": [
+      { "time": "00:00", "boss": "Kzarka, Uturi" },
+      { "time": "03:00", "boss": "Kutum" },
+      { "time": "07:00", "boss": "Nouver" },
+      { "time": "10:00", "boss": "Kzarka, Sangoon, Golden Pig King" },
+      { "time": "12:00", "boss": "Garmoth" },
+      { "time": "14:00", "boss": "Vell" },
+      { "time": "17:15", "boss": "Kzarka, Nouver, Garmoth, Bulgasal" },
+      { "time": "20:15", "boss": "Kzarka, Nouver, Golden Pig King, Sangoon" },
+      { "time": "21:15", "boss": "Garmoth" },
+      { "time": "22:15", "boss": "Karanda, Kutum" }
+    ]
+  },
+  "eu": {
+    "mon": [
+      { "time": "00:15", "boss": "Karanda, Kutum, Uturi" },
+      { "time": "02:00", "boss": "Karanda, Bulgasal" },
+      { "time": "05:00", "boss": "Kzarka" },
+      { "time": "09:00", "boss": "Kzarka" },
+      { "time": "12:00", "boss": "Offin" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Kutum, Uturi" },
+      { "time": "19:00", "boss": "Nouver, Golden Pig King, Bulgasal" },
+      { "time": "22:15", "boss": "Kzarka, Sangoon, Uturi" },
+      { "time": "23:15", "boss": "Garmoth" }
+    ],
+    "tue": [
+      { "time": "00:15", "boss": "Kutum, Golden Pig King" },
+      { "time": "02:00", "boss": "Kutum, Sangoon" },
+      { "time": "05:00", "boss": "Kzarka" },
+      { "time": "09:00", "boss": "Nouver" },
+      { "time": "12:00", "boss": "Kutum" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Nouver, Golden Pig King" },
+      { "time": "19:00", "boss": "Karanda, Bulgasal, Uturi" },
+      { "time": "22:15", "boss": "Quint, Muraka, Golden Pig King, Sangoon" },
+      { "time": "23:15", "boss": "Garmoth" }
+    ],
+    "wed": [
+      { "time": "00:15", "boss": "Karanda, Golden Pig King" },
+      { "time": "02:00", "boss": "Karanda, Golden Pig King" },
+      { "time": "05:00", "boss": "Kzarka" },
+      { "time": "09:00", "boss": "Karanda" },
+      { "time": "12:00", "boss": "Nouver" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Kutum, Offin, Bulgasal" },
+      { "time": "19:00", "boss": "Vell" },
+      { "time": "22:15", "boss": "Kzarka, Karanda, Sangoon, Uturi" },
+      { "time": "23:15", "boss": "Garmoth" }
+    ],
+    "thu": [
+      { "time": "00:15", "boss": "Kzarka, Kutum, Bulgasal" },
+      { "time": "02:00", "boss": "Kutum, Sangoon" },
+      { "time": "05:00", "boss": "Nouver" },
+      { "time": "09:00", "boss": "Kutum" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Kzarka, Uturi" },
+      { "time": "19:00", "boss": "Kutum, Sangoon, Bulgasal" },
+      { "time": "22:15", "boss": "Kzarka, Golden Pig King" },
+      { "time": "23:15", "boss": "Garmoth" }
+    ],
+    "fri": [
+      { "time": "00:15", "boss": "Nouver, Bulgasal" },
+      { "time": "02:00", "boss": "Nouver, Bulgasal" },
+      { "time": "05:00", "boss": "Karanda" },
+      { "time": "09:00", "boss": "Kutum" },
+      { "time": "12:00", "boss": "-" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Nouver, Uturi" },
+      { "time": "19:00", "boss": "Kzarka, Golden Pig King" },
+      { "time": "22:15", "boss": "Kzarka, Kutum, Bulgasal" },
+      { "time": "23:15", "boss": "Garmoth" }
+    ],
+    "sat": [
+      { "time": "00:15", "boss": "Karanda, Golden Pig King, Sangoon" },
+      { "time": "02:00", "boss": "Offin, Golden Pig King, Bulgasal" },
+      { "time": "05:00", "boss": "Nouver" },
+      { "time": "09:00", "boss": "Kutum" },
+      { "time": "12:00", "boss": "Nouver" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Black Shadow, Uturi, Golden Pig King" },
+      { "time": "19:00", "boss": "Karanda, Kzarka, Bulgasal, Sangoon" }
+    ],
+    "sun": [
+      { "time": "00:15", "boss": "Nouver, Kutum, Uturi" },
+      { "time": "02:00", "boss": "Kzarka, Sangoon, Bulgasal" },
+      { "time": "05:00", "boss": "Kutum" },
+      { "time": "09:00", "boss": "Nouver" },
+      { "time": "12:00", "boss": "Kzarka" },
+      { "time": "14:00", "boss": "Garmoth" },
+      { "time": "16:00", "boss": "Vell" },
+      { "time": "19:15", "boss": "Garmoth" },
+      { "time": "22:15", "boss": "Kzarka, Nouver, Golden Pig King, Sangoon" },
+      { "time": "23:15", "boss": "Garmoth" }
+    ]
+  }
+}
