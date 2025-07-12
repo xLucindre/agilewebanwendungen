@@ -4,23 +4,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BDO Multitool</title>
+    <title>{% block page_title %}Black Desert Multitool{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="csrf-token" content="{{ csrf_token }}" />
     {% block head %} {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
   <body class="bg-gray-900 text-white font-sans">
     <!-- Header -->
     <header class="bg-gray-800 p-4 shadow-lg">
       <div class="px-6 mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-red-400">Black Desert Multitool</h1>
-        <nav class="flex space-x-6 text-sm md:text-base">
-          <a href="/gear-planner" class="hover:text-red-300 transition"
-            >Gear Planner</a
-          >
-          <a href="/monster-zone-calc" class="hover:text-red-300 transition"
-            >Monster Zones AP/DP Calc</a
-          >
+        <div class="flex items-center space-x-4">
+          <h1 class="text-2xl font-bold text-red-400">
+            {% block header_title %}{{ page_name|default:'Black Desert Multitool' }}{% endblock %}
+          </h1>
+          <nav class="hidden md:flex space-x-4 text-sm md:text-base">
+            <a href="/gear-planner" class="hover:text-red-300 transition flex items-center gap-2 {% if request.path == '/gear-planner' %}text-red-400{% endif %}">
+              <i class="fas fa-shield-alt"></i> Gear Planner
+            </a>
+            <a href="/monster-zone-calc" class="hover:text-red-300 transition flex items-center gap-2 {% if request.path == '/monster-zone-calc' %}text-red-400{% endif %}">
+              <i class="fas fa-dragon"></i> Monster Zones AP/DP Calc
+            </a>
+          </nav>
+        </div>
+
+        <!-- Daily Reset Timer-->
+         <div class="text-sm text-gray-300">
+          Daily Reset in: <span id="reset-timer" class="font-semibold text-white">--h:--m</span>
+         </div>
+
+        <!-- Boss Timer-->
+
+        <div class="flex items-center space-x-6">
           <a href="/bosses"  class="hover:text-red-300 transition">
             Boss Timer: </a>
           <div class="flex items-center space-x-2">
@@ -30,7 +45,7 @@
               class="font-mono text-red-400"
             >--h --m --s</span>
           </div>
-        </nav>
+
         <div class="flex gap-5">
           <button id="region-button"></button>
           <button
@@ -40,6 +55,17 @@
             {% if user.is_authenticated %} Logout {%else%} Login {%endif%}
           </button>
         </div>
+        <button class="md:hidden ml-4" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden px-6 pb-3">
+        <a href="/gear-planner" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2 {% if request.path == '/gear-planner' %}text-red-400{% endif %}">
+          <i class="fas fa-shield-alt"></i> Gear Planner
+        </a>
+        <a href="/monster-zone-calc" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center gap-2 {% if request.path == '/monster-zone-calc' %}text-red-400{% endif %}">
+          <i class="fas fa-dragon"></i> Monster Zones AP/DP Calc
+        </a>
       </div>
     </header>
 
@@ -47,8 +73,9 @@
     <!-- JS -->
     <script src="{% static 'scripts/login.js' %}"></script>
     <script src="{% static 'scripts/boss-timer.js' %}"></script>
+    <script src="{% static 'scripts/daily.js' %}"></script>
     <!-- Main Content -->
-    <main class="p-6 max-w-4xl mx-auto">
+    <main class="p-6 max-w-screen-2xl mx-auto">
       {% block content %} {% endblock %}
     </main>
   </body>

@@ -1,0 +1,126 @@
+[
+  {
+    "region": "O'dyllita",
+    "zones": [
+      {"name": "Thornwood Forest", "icon": "armor.png", "level_range": "1-384", "ap_range": "385-600", "ap_cap": 600, "ap_cap_offset": 470},
+      {"name": "Tunkuta", "icon": "main_weapon.png", "level_range": "1-400", "ap_range": "401-700", "ap_cap": 700, "ap_cap_offset": 370},
+      {"name": "Olun's Valley", "icon": "gloves.png", "level_range": "1-442", "ap_range": "443-830", "ap_cap": 830, "ap_cap_offset": 240},
+      {"name": "Crypt of Resting Thoughts", "icon": "helmet.png", "level_range": "1-422", "ap_range": "423-830", "ap_cap": 830, "ap_cap_offset": 240},
+      {"name": "[Dehkia] Tunkuta", "icon": "main_weapon.png", "level_range": "1-915", "ap_range": "916-950", "ap_cap": 950, "ap_cap_offset": 120},
+      {"name": "[Dehkia] Olun's Valley", "icon": "gloves.png", "level_range": "1-894", "ap_range": "895-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia] Thornwood Forest", "icon": "armor.png", "level_range": "1-864", "ap_range": "865-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia II] Olun's Valley", "icon": "gloves.png", "level_range": "1-1215", "ap_range": "1216-1300", "ap_cap": 1300, "ap_cap_offset": -230}
+    ]
+  },
+  {
+    "region": "Snow Mountain",
+    "zones": [
+      {"name": "Murrowak's Labyrinth", "icon": "helmet.png", "level_range": "1-452", "ap_range": "453-730", "ap_cap": 730, "ap_cap_offset": 340},
+      {"name": "Jade Starlight Forest", "icon": "necklace.png", "level_range": "1-631", "ap_range": "632-734", "ap_cap": 734, "ap_cap_offset": 336}
+    ]
+  },
+  {
+    "region": "Ulukita",
+    "zones": [
+      {"name": "City of the Dead", "icon": "belt.png", "level_range": "1-889", "ap_range": "890-1100", "ap_cap": 1100, "ap_cap_offset": -30},
+      {"name": "Tungrad Ruins", "icon": "ring.png", "level_range": "1-957", "ap_range": "958-1100", "ap_cap": 1100, "ap_cap_offset": -30},
+      {"name": "Yzrahid Highlands", "icon": "gloves.png", "level_range": "1-926", "ap_range": "927-1100", "ap_cap": 1100, "ap_cap_offset": -30},
+      {"name": "Darkseeker's Retreat", "icon": "helmet.png", "level_range": "1-949", "ap_range": "950-1150", "ap_cap": 1150, "ap_cap_offset": -80}
+    ]
+  },
+  {
+    "region": "Land of the Morning Light",
+    "zones": [
+      {"name": "Honglim Base", "icon": "main_weapon.png", "level_range": "1-744", "ap_range": "745-850", "ap_cap": 850, "ap_cap_offset": 220},
+      {"name": "Dokkebi Forest", "icon": "helmet.png", "level_range": "1-1022", "ap_range": "1023-1300", "ap_cap": 1300, "ap_cap_offset": -230}
+    ]
+  },
+  {
+    "region": "Kamasylvia",
+    "zones": [
+      {"name": "Polly's Forest", "icon": "artifact.png", "level_range": "1-189", "ap_range": "190-255", "ap_cap": 255, "ap_cap_offset": 815},
+      {"name": "Fadus Habitat", "icon": "armor.png", "level_range": "1-168", "ap_range": "169-280", "ap_cap": 280, "ap_cap_offset": 790},
+      {"name": "Miruomok Ruins", "icon": "belt.png", "level_range": "1-350", "ap_range": "351-380", "ap_cap": 380, "ap_cap_offset": 690},
+      {"name": "Manshaum Forest", "icon": "gloves.png", "level_range": "1-363", "ap_range": "364-410", "ap_cap": 410, "ap_cap_offset": 660},
+      {"name": "Tooth Fairy Forest", "icon": "necklace.png", "level_range": "1-363", "ap_range": "364-410", "ap_cap": 410, "ap_cap_offset": 660},
+      {"name": "Gyfin Rhasia Temple", "icon": "ring.png", "level_range": "1-392", "ap_range": "393-700", "ap_cap": 700, "ap_cap_offset": 370},
+      {"name": "Ash Forest", "icon": "helmet.png", "level_range": "1-442", "ap_range": "443-830", "ap_cap": 830, "ap_cap_offset": 240},
+      {"name": "Gyfin Rhasia Underground", "icon": "ring.png", "level_range": "1-578", "ap_range": "579-830", "ap_cap": 830, "ap_cap_offset": 240},
+      {"name": "[Dehkia] Ash Forest", "icon": "helmet.png", "level_range": "1-866", "ap_range": "867-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia II] Ash Forest", "icon": "helmet.png", "level_range": "1-1075", "ap_range": "1076-1300", "ap_cap": 1300, "ap_cap_offset": -230}
+    ]
+  },
+  {
+    "region": "Drieghan",
+    "zones": [
+      {"name": "Tshira Ruins", "icon": "belt.png", "level_range": "1-184", "ap_range": "185-245", "ap_cap": 245, "ap_cap_offset": 825},
+      {"name": "Blood Wolf Settlement", "icon": "main_weapon.png", "level_range": "1-274", "ap_range": "275-312", "ap_cap": 312, "ap_cap_offset": 758},
+      {"name": "Sherekhan (Day)", "icon": "helmet.png", "level_range": "1-307", "ap_range": "308-365", "ap_cap": 365, "ap_cap_offset": 705},
+      {"name": "Sherekhan (Night)", "icon": "helmet.png", "level_range": "1-236", "ap_range": "237-480", "ap_cap": 480, "ap_cap_offset": 590}
+    ]
+  },
+  {
+    "region": "Valencia",
+    "zones": [
+      {"name": "Desert Naga Temple", "icon": "belt.png", "level_range": "1-157", "ap_range": "158-213", "ap_cap": 213, "ap_cap_offset": 857},
+      {"name": "Titium Valley", "icon": "main_weapon.png", "level_range": "1-157", "ap_range": "158-213", "ap_cap": 213, "ap_cap_offset": 857},
+      {"name": "Bashim Base", "icon": "helmet.png", "level_range": "1-157", "ap_range": "158-213", "ap_cap": 213, "ap_cap_offset": 857},
+      {"name": "Gahaz Bandit's Lair", "icon": "armor.png", "level_range": "1-184", "ap_range": "185-245", "ap_cap": 245, "ap_cap_offset": 825},
+      {"name": "Crescent Shrine", "icon": "ring.png", "level_range": "1-182", "ap_range": "183-245", "ap_cap": 245, "ap_cap_offset": 825},
+      {"name": "Cadry Ruins", "icon": "belt.png", "level_range": "1-178", "ap_range": "179-245", "ap_cap": 245, "ap_cap_offset": 825},
+      {"name": "Waragon Nest", "icon": "helmet.png", "level_range": "1-1", "ap_range": "2-250", "ap_cap": 250, "ap_cap_offset": 820},
+      {"name": "Centaurus Herd", "icon": "main_weapon.png", "level_range": "1-252", "ap_range": "253-312", "ap_cap": 312, "ap_cap_offset": 758},
+      {"name": "Basilisk Den", "icon": "belt.png", "level_range": "1-252", "ap_range": "253-320", "ap_cap": 320, "ap_cap_offset": 750},
+      {"name": "Roud Sulfur Mine", "icon": "main_weapon.png", "level_range": "1-307", "ap_range": "308-365", "ap_cap": 365, "ap_cap_offset": 705},
+      {"name": "Pila Ku Jail", "icon": "helmet.png", "level_range": "1-307", "ap_range": "308-365", "ap_cap": 365, "ap_cap_offset": 705},
+      {"name": "Hystria Ruins", "icon": "ring.png", "level_range": "1-384", "ap_range": "385-600", "ap_cap": 600, "ap_cap_offset": 470},
+      {"name": "Aakman Temple", "icon": "main_weapon.png", "level_range": "1-347", "ap_range": "348-600", "ap_cap": 600, "ap_cap_offset": 470},
+      {"name": "[Dehkia] Aakman Temple", "icon": "main_weapon.png", "level_range": "1-884", "ap_range": "885-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia] Hystria Ruins", "icon": "ring.png", "level_range": "1-884", "ap_range": "885-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia] Roud Sulfur Mine", "icon": "main_weapon.png", "level_range": "1-884", "ap_range": "885-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia] Pila Ku Jail", "icon": "helmet.png", "level_range": "1-864", "ap_range": "865-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia] Crescent Shrine", "icon": "ring.png", "level_range": "1-864", "ap_range": "865-1000", "ap_cap": 1000, "ap_cap_offset": 70},
+      {"name": "[Dehkia] Cadry Ruins", "icon": "belt.png", "level_range": "1-1000", "ap_range": "1001-1000", "ap_cap": 1000, "ap_cap_offset": 70}
+    ]
+  },
+  {
+    "region": "Serendia",
+    "zones": [
+      {"name": "Biraghi Den", "icon": "main_weapon.png", "level_range": "1-410", "ap_range": "411-753", "ap_cap": 753, "ap_cap_offset": 317},
+      {"name": "Altar Imp Habitat", "icon": "main_weapon.png", "level_range": "1-410", "ap_range": "411-753", "ap_cap": 753, "ap_cap_offset": 317},
+      {"name": "Castle Ruins", "icon": "helmet.png", "level_range": "1-438", "ap_range": "439-774", "ap_cap": 774, "ap_cap_offset": 296},
+      {"name": "Swamp Fogan Habitat", "icon": "main_weapon.png", "level_range": "1-476", "ap_range": "477-803", "ap_cap": 803, "ap_cap_offset": 267},
+      {"name": "Swamp Naga Habitat", "icon": "main_weapon.png", "level_range": "1-476", "ap_range": "477-803", "ap_cap": 803, "ap_cap_offset": 267},
+      {"name": "Orc Camp", "icon": "main_weapon.png", "level_range": "1-368", "ap_range": "369-856", "ap_cap": 856, "ap_cap_offset": 214},
+      {"name": "Bloody Monastery", "icon": "main_weapon.png", "level_range": "1-694", "ap_range": "695-856", "ap_cap": 856, "ap_cap_offset": 214}
+    ]
+  },
+  {
+    "region": "Calpheon",
+    "zones": [
+      {"name": "Star's End", "icon": "main_weapon.png", "level_range": "1-392", "ap_range": "393-650", "ap_cap": 650, "ap_cap_offset": 420},
+      {"name": "Padix Island", "icon": "main_weapon.png", "level_range": "1-400", "ap_range": "401-700", "ap_cap": 700, "ap_cap_offset": 370},
+      {"name": "Abandoned Monastery", "icon": "main_weapon.png", "level_range": "1-400", "ap_range": "401-750", "ap_cap": 750, "ap_cap_offset": 320},
+      {"name": "Saunil Camp", "icon": "main_weapon.png", "level_range": "1-658", "ap_range": "659-813", "ap_cap": 813, "ap_cap_offset": 257},
+      {"name": "Rhutum Outstation", "icon": "main_weapon.png", "level_range": "1-687", "ap_range": "688-835", "ap_cap": 835, "ap_cap_offset": 235},
+      {"name": "Primal Giant Post", "icon": "main_weapon.png", "level_range": "1-725", "ap_range": "726-856", "ap_cap": 856, "ap_cap_offset": 214},
+      {"name": "Hexe Sanctuary", "icon": "main_weapon.png", "level_range": "1-792", "ap_range": "793-898", "ap_cap": 898, "ap_cap_offset": 172},
+      {"name": "Troll Habitat", "icon": "main_weapon.png", "level_range": "1-814", "ap_range": "815-920", "ap_cap": 920, "ap_cap_offset": 150},
+      {"name": "[Dehkia] Cyclops Land", "icon": "main_weapon.png", "level_range": "1-910", "ap_range": "911-1000", "ap_cap": 1000, "ap_cap_offset": 70}
+    ]
+  },
+  {
+    "region": "Mediah",
+    "zones": [
+      {"name": "Kratuga Ancient Ruins", "icon": "main_weapon.png", "level_range": "1-342", "ap_range": "343-600", "ap_cap": 600, "ap_cap_offset": 470}
+    ]
+  },
+  {
+    "region": "Balenos",
+    "zones": [
+      {"name": "Protty Cave", "icon": "main_weapon.png", "level_range": "1-242", "ap_range": "243-280", "ap_cap": 280, "ap_cap_offset": 790},
+      {"name": "Sycraia Underwater Ruins (Upper)", "icon": "main_weapon.png", "level_range": "1-342", "ap_range": "343-380", "ap_cap": 380, "ap_cap_offset": 690},
+      {"name": "Sycraia Abyssal Ruins (Lower)", "icon": "main_weapon.png", "level_range": "1-400", "ap_range": "401-650", "ap_cap": 650, "ap_cap_offset": 420}
+    ]
+  }
+] 

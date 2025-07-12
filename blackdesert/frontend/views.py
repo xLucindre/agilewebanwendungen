@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from backend.models import Equipment
+from backend.models import Equipment, UserGear
 from backend.icon_map import get_icon_for_item
 import re
 
@@ -107,8 +107,81 @@ def gear_planner(request):
     
     return render(request, "gear_planner.html", {"gear_options": gear_options})
 
+ROMAN_TO_INT = {
+    'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5,
+    'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9, 'X': 10,
+    'XI': 11, 'XII': 12, 'XIII': 13, 'XIV': 14, 'XV': 15
+}
+
+def enhancement_to_int(enh, item_name=None):
+    if enh is None:
+        return 0
+    try:
+        return int(enh)
+    except (TypeError, ValueError):
+        roman = str(enh).upper()
+        if item_name and 'BLACKSTAR' in item_name.upper():
+            roman_map = {'I': 16, 'II': 17, 'III': 18, 'IV': 19, 'V': 20}
+            return roman_map.get(roman, 0)
+        return ROMAN_TO_INT.get(roman, 0)
+
 def monster_zone_calc(request):
-    return render(request, "monster_zone_calc.html")
+    ap = None
+    aap = None
+    dp = None
+    if request.user.is_authenticated:
+        try:
+            user_gear = UserGear.objects.get(user=request.user)
+            gear_data = user_gear.gear_data
+            selected_gear = gear_data.get('selectedGear', {})
+            enhancement_levels = gear_data.get('enhancementLevels', {})
+
+            gear_slots = [
+                'main_weapon', 'awakening_weapon', 'sub_weapon', 'helmet', 'armor', 'gloves', 'shoes',
+                'ring1', 'ring2', 'earring1', 'earring2', 'necklace', 'belt'
+            ]
+            extra_slots = ['artifact1', 'artifact2', 'alchemy_stone']
+
+            ap_val_total = 0
+            aap_val_total = 0
+            dp_val_total = 0
+
+            for slot in gear_slots + extra_slots:
+                item_name = selected_gear.get(slot)
+                if not item_name or item_name == 'None':
+                    continue
+                enhancement = enhancement_levels.get(slot)
+                enhancement = enhancement_to_int(enhancement, item_name)
+                try:
+                    eq = Equipment.objects.get(name=item_name, equip_type=slot.replace('1','').replace('2',''), upgrades=enhancement)
+                except Equipment.DoesNotExist:
+                    eq = None
+                if eq:
+                    ap_str = str(eq.ap) if eq.ap else ''
+                    match = re.match(r"(\d+)", ap_str)
+                    ap_val = int(match.group(1)) if match else 0
+                    dp_val = int(eq.dp) if eq.dp else 0
+
+                    # AP
+                    if slot == 'awakening_weapon':
+                        aap_val_total += ap_val
+                    elif slot == 'main_weapon':
+                        ap_val_total += ap_val
+                    else:
+                        ap_val_total += ap_val
+                        aap_val_total += ap_val
+
+                    # DP nur für gear_slots
+                    if slot in gear_slots:
+                        dp_val_total += dp_val
+            ap = ap_val_total
+            aap = aap_val_total
+            dp = dp_val_total
+        except UserGear.DoesNotExist:
+            pass
+    return render(request, "monster_zone_calc.html", {"ap": ap, "aap": aap, "dp": dp})
+
 
 def bosses(request):
     return render(request, "bosses.html")
+    
