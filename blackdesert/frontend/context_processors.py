@@ -1,9 +1,15 @@
 # myapp/context_processors.py
+from django.core.exceptions import ObjectDoesNotExist
 
-from datetime import datetime
+def user_region(request):
+    if request.user.is_authenticated:
+        try:
+            region = request.user.profile.region
+        except ObjectDoesNotExist:
+            region = "eu"
+    else:
+        region = None
 
-def boss_timer_context(request):
-    now = datetime.now().strftime("%H:%M:%S")
     return {
-        "bossTimer": now
+        'user_region': region
     }

@@ -1,8 +1,10 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from backend.models import Profile
 
 @require_POST
 def register_view(request):
@@ -41,3 +43,21 @@ def logout_view(request):
     logout(request)
     return JsonResponse({"redirect": "/"})
 
+@require_POST
+@login_required
+def save_region_view(request):
+    try:
+        data = json.loads(request.body)
+        region = data.get('region', '').strip().lower()
+    except (json.JSONDecodeError, AttributeError):
+        return JsonResponse({"error": "Invalid JSON."}, status=400)
+
+    if not region:
+        return JsonResponse({"error": "Region is required."}, status=400)
+
+    # Ensure profile exists
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    profile.region = region
+    profile.save()
+
+    return JsonResponse({"status": "success", "region": region})
