@@ -1,13 +1,8 @@
-from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-
-def home(request):
-    return HttpResponse("Home World")
 
 @require_POST
 def register_view(request):
