@@ -7,7 +7,7 @@ export const loadingBossTimes = new Promise(async (resolve) => {
 });
 await loadingBossTimes;
 
-export let selectedRegion = "eu";
+let selectedRegion = document.body.dataset.selectedRegion;
 
 function getNextBoss(region = "eu") {
   // Helper function to convert time to minutes since midnight
@@ -179,6 +179,16 @@ export const regionButton = document.getElementById("region-button");
 regionButton.innerHTML = selectedRegion === "eu" ? "EU" : "NA";
 regionButton.addEventListener("click", () => {
   selectedRegion = selectedRegion === "eu" ? "na" : "eu";
+  fetch("/backend/save_region/", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ region: selectedRegion }),
+  });
   regionButton.innerHTML = selectedRegion === "eu" ? "EU" : "NA";
 });
 

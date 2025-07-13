@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 class Equipment(models.Model):
@@ -38,3 +41,24 @@ class UserGear(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Gear"
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    region = models.CharField(max_length=50, default='eu')
+
+def get_region(self):
+    try:
+        return self.profile.region
+    except ObjectDoesNotExist:
+        return "eu"  # or a default like "Unknown"
+
+User.add_to_class('region', property(get_region))
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
